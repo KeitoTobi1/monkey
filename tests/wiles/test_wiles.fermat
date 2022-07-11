@@ -1,5 +1,0 @@
-
-let test_wiles_token :
-    assert wiles.parse letter 'foo' 'abc' -> right
-    assert wiles.parse digit 'foo' '123' -> right
-    assert wiles.parse digit 'foo' 'abc' -> error
