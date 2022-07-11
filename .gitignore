@@ -1,0 +1,9 @@
+# Binaries for programs and plugins
+main
+bug_issue_monkey
+*.exe
+*.exe~
+*.so
+*.dylib
+*.dll
+vls.log

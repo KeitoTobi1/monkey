@@ -1,0 +1,4 @@
+
+assert chinese_remainder [3,5,7] [2,5,2] == 23
+assert chinese_remainder [3,4] [4,5] == 19
+assert chinese_remainder [2,3,5] [3,5,7] == 68
