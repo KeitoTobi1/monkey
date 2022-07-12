@@ -6,8 +6,6 @@ import token
 import os
 import strconv
 
-// TODO: Change to Parser Combinetor Base.
-
 [heap]
 struct Parser {
 	filename string
@@ -16,13 +14,10 @@ mut:
 	prev_tok token.Token
 	cur_tok  token.Token
 	peek_tok token.Token
-	// expr_list []ast.Expr
 	idx_token int
 	is_decl   bool
 	errors    []string
 }
-
-// fn (mut p Parser) expr_list() {}
 
 // parser init.
 fn (mut p Parser) init_parser() {
@@ -260,8 +255,6 @@ fn (mut p Parser) parse_let_stmt() ?ast.LetStmt {
 	if !p.expect_peek(token.Kind.equal) {
 		return error('Invalid Let Statement.')
 	}
-
-	// TODO: マニュアル通りならセミコロンが消えるはず
 
 	for !p.cur_tok_is(token.Kind.semicolon) {
 		p.next_tok()

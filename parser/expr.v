@@ -3,7 +3,6 @@ module parser
 import ast
 import token
 
-// TODO: Using This Funciton.
 fn (mut p Parser) expr(precedence int) ?ast.Expr {
 	return p.parse_expr(precedence) or { panic(err) }
 }
@@ -34,26 +33,6 @@ fn (mut p Parser) check_expr() ?ast.Expr {
 fn (mut p Parser) is_following_op() bool {
 	return p.cur_tok.kind.is_operator()
 }
-
-/*
-fn (mut p Parser) parse_expr(precedence int) ?ast.Expr {
-	mut expr := if p.is_leading_op() {
-		p.prefix_parse()
-	} else {
-		p.expr_with_left() or { panic(err) }
-	}
-	for {
-		p.next_tok()
-		if !p.is_following_op() {
-			return expr
-		}
-
-		expr = {
-			// 後続演算子のパース
-		}
-	}
-}
-*/
 
 fn (mut p Parser) parse_expr(precedence int) ?ast.Expr {
 	println('parse_expr')
