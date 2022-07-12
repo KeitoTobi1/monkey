@@ -6,6 +6,14 @@ import token
 import os
 import strconv
 
+// TODO: Change to Parser Combinator Base.
+
+const (
+	expr_level_cutoff_limit = 40
+	stmt_level_cutoff_limit = 40
+)
+
+
 [heap]
 struct Parser {
 	filename string
@@ -14,13 +22,18 @@ mut:
 	prev_tok token.Token
 	cur_tok  token.Token
 	peek_tok token.Token
+	expr_level int
+	stmt_level int
 	idx_token int
 	is_decl   bool
 	errors    []string
 }
 
+// fn (mut p Parser) expr_list() {}
+
 // parser init.
 fn (mut p Parser) init_parser() {
+	println('init_parser')
 	p.next_tok()
 	p.next_tok()
 }
@@ -230,14 +243,15 @@ fn (mut p Parser) parse_expr_stmt() ?ast.ExprStmt {
 		val: expr
 	}
 
-	p.peek_tok_is(token.Kind.semicolon)
-	{
+	if p.peek_tok_is(token.Kind.semicolon) {
+		println('parse_expr_stmt:catch the semicolon')
 		p.next_tok()
 	}
 	return stmt
 }
 
 fn (mut p Parser) parse_let_stmt() ?ast.LetStmt {
+	println('parse_let_stmt')
 	let_tok := &token.Token{
 		kind: p.cur_tok.kind
 		lit: p.cur_tok.lit
@@ -256,7 +270,10 @@ fn (mut p Parser) parse_let_stmt() ?ast.LetStmt {
 		return error('Invalid Let Statement.')
 	}
 
+	// TODO: マニュアル通りならセミコロンが消えるはず
+
 	for !p.cur_tok_is(token.Kind.semicolon) {
+		println('parse_let_stmt:catch the semicolon')
 		p.next_tok()
 	}
 
